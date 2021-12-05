@@ -3,10 +3,7 @@ package org.example
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.sql.Connection
-import java.sql.Driver
-import java.sql.DriverPropertyInfo
-import java.sql.SQLException
+import java.sql.*
 import java.util.*
 import java.util.logging.Logger
 
@@ -14,8 +11,25 @@ class CsvDriver(
 ) : Driver {
 
     companion object {
-        val INSTANCE: Driver = CsvDriver()
-        var registered: Boolean = true
+        private val INSTANCE: Driver = CsvDriver()
+        private var registered: Boolean = true
+
+        private fun load(): Driver {
+            if (!registered) {
+                registered = true
+                try {
+                    DriverManager.registerDriver(INSTANCE)
+                } catch (throwable: SQLException) {
+                    throwable.printStackTrace()
+                }
+            }
+
+            return INSTANCE
+        }
+
+        init {
+            load()
+        }
     }
 
     override fun connect(url: String?, info: Properties?): Connection {

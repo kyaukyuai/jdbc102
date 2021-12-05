@@ -11,7 +11,7 @@ import java.util.*
 import java.util.stream.Stream
 
 class CsvResultSet(
-    private val line: Stream<String>
+    line: Stream<String>
 ): ResultSet {
     private val iterator: Iterator<String> = line.iterator()
     private var record: List<String>? = null
