@@ -12,7 +12,7 @@ class CsvDriver(
 
     companion object {
         private val INSTANCE: Driver = CsvDriver()
-        private var registered: Boolean = true
+        private var registered: Boolean = false
 
         private fun load(): Driver {
             if (!registered) {

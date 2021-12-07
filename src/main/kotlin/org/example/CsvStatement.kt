@@ -28,8 +28,6 @@ class CsvStatement(
 
         val filePath: Path = directory.resolve(fileName)
 
-        println(filePath.toString())
-
         if (!Files.exists(filePath)) throw SQLException("error")
 
         return CsvResultSet(Files.lines(filePath))
